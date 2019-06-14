@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+
+
+
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDHGPOjbDa_6DWTFDf4DNgsZEUPrvCIWhA",
+    authDomain: "tmp01-23cdb.firebaseapp.com",
+    databaseURL: "https://tmp01-23cdb.firebaseio.com",
+    projectId: "tmp01-23cdb",
+    storageBucket: "tmp01-23cdb.appspot.com",
+    messagingSenderId: "839782107759",
+    appId: "1:839782107759:web:a0864f427d0dc077"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const preObject = document.getElementById('objeto');
+  const dbRefObject = firebase.database().ref().child('turn');
+  dbRefObject.on('value', snap=> console.log(snap.val()));
+  
+  //dbRefObject.set("off").then().catch(console.log("error writing data."));
+  
+
+  firebase.database().ref().set({turn: "off"}).then().catch("error writing data...");
+
+  function changeLight(state) {
+    console.log(state);
+    let light = "on";
+    if(state)
+      light = "on";
+    else
+      light = "off";      
+    firebase.database().ref().set({turn: light}).then().catch("error writing real time data...");
+    let image = document.getElementById("LED");
+    image.src = light + ".png";
+  }
+
+</script>
+
+<pre id="objeto"></pre>
+
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<center>
+	<button id="ON" onclick ="changeLight(1)"> ON </button>
+	<img id="LED" src="off.png" width="300px" height="300px" />
+	<button id="OFF" onclick="changeLight(0)">OFF</button>
+
+</center>
+</body>
+
+
+</html> 
